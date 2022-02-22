@@ -1,0 +1,27 @@
+COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸
+
+$nhlcall {template} ||password||
+$footcall {template} ||password||
+$basketcall {template} ||password||
+
+Prop
+Parley
+Straight-Bet
+
+
+{"fields" : None, 
+"bet_type" : "None",
+ "name0" : None,
+ "body0" : None,
+ "name1" : None,
+ "body1" : None,
+ "name2" : None,
+ "body2" : None,
+ "name3" : None,
+ "body3" : None,
+ "name4" : None,
+ "body4" : None,
+ "name5" : None,
+ "body5" : None}
+
+

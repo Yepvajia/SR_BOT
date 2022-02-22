@@ -1,0 +1,29 @@
+COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸 🤣 😎
+
+$nhlcall {template} ||password||
+$footcall {template} ||password||
+$basketcall {template} ||password||
+
+PROP
+PARLEY
+STRAIGHT-BET
+
+MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
+do this shit 
+
+{"fields" : 4, 
+"bet_type" : "PARLEY",
+ "name0" : "Big bet lots of money 🤑🤑💸",
+ "body0" : "TRUST ME THIS IS THE MOVE ✅",
+ "name1" : "🔒 LOCK OF THE WEEK 🔒",
+ "body1" : "💰Invest Now💰",
+ "name2" : "Is Tom Brady Gay???",
+ "body2" : "😎Bigly😎",
+ "name3" : "Large Man 🤣",
+ "body3" : "On The Move ✅✅✅✅",
+ "name4" : "Alright I got one more fo you",
+ "body4" : "✅✅✅✅✅✅✅",
+ "name5" : None,
+ "body5" : None}
+
+
