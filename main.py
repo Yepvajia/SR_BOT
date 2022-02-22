@@ -6,6 +6,7 @@ import json
 import tweepy
 from discord.ext import commands
 from discord.ext.commands import has_guild_permissions
+from ast import literal_eval
 from datetime import datetime
 from easy_pil import Editor, Canvas, Font, load_image
 
@@ -29,6 +30,8 @@ client.remove_command('help')
 # api = tweepy.API(auth)
 
 #GLOBAL DISCORD VARIABLES 
+here = os.path.dirname(os.path.abspath(__file__))
+
 DISCLAIMER_MSG_ID = 943683796228800593
 THMB = "https://i.imgur.com/QKWCNMI.png"
 
@@ -138,29 +141,10 @@ async def on_member_remove(member):
 
 
 
-#Test Json Log
-@client.command()
-@has_guild_permissions(administrator=True)
-async def log(ctx, password): 
-    ## V ADD THIS NOW DECLARATION TO THE TOP OF THE OTHER BOT 
-    here = os.path.dirname(os.path.abspath(__file__))
-    anaFile = os.path.join(here, 'analyst_log.json')
-    now = datetime.now()
-    date_time = now.strftime('%d/%m/%Y, %H:%M:%S')
-    log = {}
-    author = str(ctx.message.author)
-    log[date_time] = author[:-5]
-    with open(anaFile, "r") as file:
-        data = json.load(file)
-        data.append(log)
-    with open(anaFile, "w") as file:
-        json.dump(data, file)
-    await ctx.send("Done")
-    print(log, password)
+
 
 #Construct Rank Card
 def drawRank(member, perc):
-    here = os.path.dirname(os.path.abspath(__file__))
     fontFile = os.path.join(here, 'assets/herchampions.ttf')
     bgFile = os.path.join(here, 'assets/card_bg_noking.png')
     image = load_image((str(member.avatar_url)))
@@ -194,20 +178,24 @@ async def rank(ctx, perc = 85):
 
 def templateMK(sport, template):
     #{"fields" : 6, "bet_type" : "PARLEY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
+    description = None
+    typeDic = {"check" : ["PROP", "PARLEY", "STRAIGHT-BET"], "PROP" : f"\uFEFF \uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "PARLEY" : f"\uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "STRAIGHT-BET" : f"~***__{template['bet_type']}__***~"}
     if template["fields"] > 6:
         return
-    e = discord.Embed(title = f"***__Stakes Royale__***", description = f"\uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", color = discord.Color.dark_purple())
+    if template['bet_type'] in typeDic["check"]:
+        description = typeDic[template['bet_type']]
+    e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
     e.set_thumbnail(url = THMB)
     for i in range(int(template["fields"])+1):
-        if i == 0:
-            e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-            e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
-        else:
-            e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
-            e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
+        # if i == 0:
+        #     e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+        #     e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
+        # else:
+        e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+        e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
     e.set_footer(text = f"{sport}")
-    print(e)
-    return e
+    if description != None:
+        return e
 
 def templateCheck(template):
     for i in range(int(template["fields"])+1):
@@ -215,27 +203,42 @@ def templateCheck(template):
             return False
     return True
 
+#Log msg author
+def log(auth): 
+    ## V ADD THIS NOW DECLARATION TO THE TOP OF THE OTHER BOT 
+    author = str(auth)
+    anaFile = os.path.join(here, 'analyst_log.json')
+    now = datetime.now()
+    date_time = now.strftime('%d/%m/%Y, %H:%M:%S')
+    log = {}
+    log[date_time] = author[:-5]
+    with open(anaFile, "r") as file:
+        data = json.load(file)
+        data.append(log)
+    with open(anaFile, "w") as file:
+        json.dump(data, file, indent=2)
+    print(log, " LOGGED")
 
 @client.command()
-@has_guild_permissions(administrator=True)
-async def footcall(ctx):
-    e = templateMK("Football",{"fields" : 4, 
-"bet_type" : "PARLEY",
- "name0" : "Big bet lots of money 🤑🤑💸",
- "body0" : "TRUST ME THIS IS THE MOVE ✅",
- "name1" : "🔒 LOCK OF THE WEEK 🔒",
- "body1" : "💰Invest Now💰",
- "name2" : "Is Tom Brady Gay???",
- "body2" : "😎Bigly😎",
- "name3" : "Large Man 🤣",
- "body3" : "On The Move ✅✅✅✅",
- "name4" : "Alright I got one more fo you",
- "body4" : "✅✅✅✅✅✅✅",
- "name5" : None,
- "body5" : None})
-    channel = client.get_channel(943684861326131251) 
-    await channel.send(embed = e)
-
+@commands.has_role("Analyst")
+async def footcall(ctx, password, *,template : literal_eval):
+    ## Analyst Calls Sender for Football
+    await ctx.channel.purge(limit = 1)
+    CHANNEL = 943684861326131251
+    SPORT = "Football"
+    if password == "||password||":
+        if templateCheck(template):
+            if templateMK(SPORT, template) != None:
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = templateMK(SPORT, template) 
+                await channel.send(embed = e)
+            elif templateMK(SPORT, template) == None:
+                await ctx.send("ERROR CHECK BET TYPE")
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != "||password||":
+        await ctx.send("ERROR CHECK PASSWORD")
 
 
 
