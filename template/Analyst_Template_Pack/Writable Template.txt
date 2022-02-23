@@ -1,11 +1,13 @@
-COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸
+COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸 ⏰
+FOR EVERY CALL THER SHOULD BE A 🔒 EMOTE
 
 $nhlcall ||password|| {template} 
 $footcall ||password|| {template} 
-$basketcall ||password|| {template} 
+$basketcall ||password|| {template}
+$prevcall ||password|| {template}
 
-PROP
-PARLEY
+PROPS
+PARLAY
 STRAIGHT-BET
 
 MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
@@ -24,5 +26,3 @@ MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
  "body4" : None,
  "name5" : None,
  "body5" : None}
-
-

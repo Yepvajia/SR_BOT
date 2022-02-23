@@ -93,7 +93,7 @@ async def on_raw_reaction_add(payload):
             channel = client.get_channel(938335074523435008)
             await member.add_roles(role)
             await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-            print(nmembers(member.guild))
+            # print(nmembers(member.guild))
 
 
 #Member Reaction Remove
@@ -108,7 +108,7 @@ async def on_raw_reaction_remove(payload):
             channel = client.get_channel(938335074523435008)
             await member.remove_roles(role)
             await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-            print(nmembers(member.guild))
+            # print(nmembers(member.guild))
 
 
 
@@ -131,14 +131,14 @@ async def memberCount(ctx):
 async def on_member_join(member):
     channel = client.get_channel(938335074523435008)
     await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-    print(nmembers(member.guild))
+    print("New Member!")
 
 #Update member count on leave
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(938335074523435008)
     await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-    print(nmembers(member.guild))
+    print("New Member!")
 
 
 
@@ -180,7 +180,7 @@ async def rank(ctx, perc = 85):
 def templateMK(sport, template):
     #{"fields" : 6, "bet_type" : "PARLEY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
     description = None
-    typeDic = {"check" : ["PROP", "PARLEY", "STRAIGHT-BET"], "PROP" : f"\uFEFF \uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "PARLEY" : f"\uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "STRAIGHT-BET" : f"~***__{template['bet_type']}__***~"}
+    typeDic = {"check" : ["PROPS", "PARLAY", "STRAIGHT-BET"], "PROPS" : f"\uFEFF \uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "PARLAY" : f"\uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "STRAIGHT-BET" : f"~***__{template['bet_type']}__***~"}
     if template["fields"] > 6:
         return
     if template['bet_type'] in typeDic["check"]:
@@ -188,12 +188,12 @@ def templateMK(sport, template):
     e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
     e.set_thumbnail(url = THMB)
     for i in range(int(template["fields"])+1):
-        # if i == 0:
-        #     e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-        #     e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
-        # else:
-        e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
-        e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
+        if i == 0:
+            # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+            e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
+        else:
+            e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+            e.add_field(name = template[f"name{i}"], value = "🔒" + template[f"body{i}"], inline = False)
     e.set_footer(text = f"{sport}")
     if description != None:
         return e
@@ -270,6 +270,27 @@ async def nhlcall(ctx, password, *,template : literal_eval):
     await ctx.channel.purge(limit = 1)
     CHANNEL = 938163989756649592
     SPORT = "Hockey"
+    if password == "||password||":
+        if templateCheck(template):
+            if templateMK(SPORT, template) != None:
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = templateMK(SPORT, template) 
+                await channel.send(embed = e)
+            elif templateMK(SPORT, template) == None:
+                await ctx.send("ERROR CHECK BET TYPE")
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != "||password||":
+        await ctx.send("ERROR CHECK PASSWORD")
+
+@client.command()
+@commands.has_role("Analyst")
+async def basketcall(ctx, password, *,template : literal_eval):
+    ## Analyst Calls Sender for Basketball
+    await ctx.channel.purge(limit = 1)
+    CHANNEL = 938164524798857256
+    SPORT = "Basketball"
     if password == "||password||":
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
