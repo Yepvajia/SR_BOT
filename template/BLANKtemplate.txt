@@ -1,16 +1,17 @@
 COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸
 
-$nhlcall {template} ||password||
-$footcall {template} ||password||
-$basketcall {template} ||password||
+$nhlcall ||password|| {template} 
+$footcall ||password|| {template} 
+$basketcall ||password|| {template} 
 
-Prop
-Parley
-Straight-Bet
+PROP
+PARLEY
+STRAIGHT-BET
 
+MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
 
 {"fields" : None, 
-"bet_type" : "None",
+"bet_type" : None,
  "name0" : None,
  "body0" : None,
  "name1" : None,

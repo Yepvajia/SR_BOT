@@ -1,8 +1,8 @@
 COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸
 
-$nhlcall {template} ||password||
-$footcall {template} ||password||
-$basketcall {template} ||password||
+$nhlcall ||password|| {template} 
+$footcall ||password|| {template} 
+$basketcall ||password|| {template} 
 
 PROP
 PARLEY

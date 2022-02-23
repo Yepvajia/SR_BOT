@@ -3,6 +3,7 @@ import discord
 import os
 import random
 import json
+import time
 import tweepy
 from discord.ext import commands
 from discord.ext.commands import has_guild_permissions
@@ -76,7 +77,7 @@ async def Socials_(ctx):
     e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
     e.add_field(name= "<:youtube:938338677015339008>", value = "[Youtube｜Link](https://www.youtube.com/)",inline = False)
     e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-    e.add_field(name= "<:logo:938339777948831784>", value = "[Website｜Link](http://stakesroyale.com/)",inline = False)
+    e.add_field(name= "<:logo:940097039608471572>", value = "[Website｜Link](http://stakesroyale.com/)",inline = False)
     e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
     e.set_footer(text = "Do you want somthing here?")
     await ctx.send(embed=e)
@@ -221,11 +222,54 @@ def log(auth):
 
 @client.command()
 @commands.has_role("Analyst")
+async def prevcall(ctx, password, *,template : literal_eval):
+    ## Analyst Calls Sender PREVIEW
+    await ctx.channel.purge(limit = 1)
+    SPORT = "Preview"
+    if password == "||password||":
+        if templateCheck(template):
+            if templateMK(SPORT, template) != None:
+                log(ctx.message.author) 
+                e = templateMK(SPORT, template) 
+                await ctx.send(embed = e)
+                time.sleep(10)
+                await ctx.channel.purge(limit = 1)
+            elif templateMK(SPORT, template) == None:
+                await ctx.send("ERROR CHECK BET TYPE")
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != "||password||":
+        await ctx.send("ERROR CHECK PASSWORD")
+
+
+@client.command()
+@commands.has_role("Analyst")
 async def footcall(ctx, password, *,template : literal_eval):
     ## Analyst Calls Sender for Football
     await ctx.channel.purge(limit = 1)
-    CHANNEL = 943684861326131251
+    CHANNEL = 938164270296870922
     SPORT = "Football"
+    if password == "||password||":
+        if templateCheck(template):
+            if templateMK(SPORT, template) != None:
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = templateMK(SPORT, template) 
+                await channel.send(embed = e)
+            elif templateMK(SPORT, template) == None:
+                await ctx.send("ERROR CHECK BET TYPE")
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != "||password||":
+        await ctx.send("ERROR CHECK PASSWORD")
+
+@client.command()
+@commands.has_role("Analyst")
+async def nhlcall(ctx, password, *,template : literal_eval):
+    ## Analyst Calls Sender for Hockey
+    await ctx.channel.purge(limit = 1)
+    CHANNEL = 938163989756649592
+    SPORT = "Hockey"
     if password == "||password||":
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
