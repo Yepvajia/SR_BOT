@@ -190,7 +190,7 @@ def templateMK(sport, template):
     for i in range(int(template["fields"])+1):
         if i == 0:
             # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-            e.add_field(name = template[f"name{i}"], value = template[f"body{i}"], inline = False)
+            e.add_field(name = template[f"name{i}"], value = "🔒" + template[f"body{i}"], inline = False)
         else:
             e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
             e.add_field(name = template[f"name{i}"], value = "🔒" + template[f"body{i}"], inline = False)
@@ -249,6 +249,9 @@ async def footcall(ctx, password, *,template : literal_eval):
     await ctx.channel.purge(limit = 1)
     CHANNEL = 938164270296870922
     SPORT = "Football"
+    #Player props exception
+    if template["bet_type"] == "PROPS":
+        CHANNEL = 938164342535372802
     if password == "||password||":
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
@@ -270,6 +273,9 @@ async def nhlcall(ctx, password, *,template : literal_eval):
     await ctx.channel.purge(limit = 1)
     CHANNEL = 938163989756649592
     SPORT = "Hockey"
+    #Player props exception
+    if template["bet_type"] == "PROPS":
+        CHANNEL = 938164064591437854
     if password == "||password||":
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
@@ -291,6 +297,38 @@ async def basketcall(ctx, password, *,template : literal_eval):
     await ctx.channel.purge(limit = 1)
     CHANNEL = 938164524798857256
     SPORT = "Basketball"
+    #Player props exception
+    if template["bet_type"] == "PROPS":
+        CHANNEL = 938164584714489886
+    if password == "||password||":
+        if templateCheck(template):
+            if templateMK(SPORT, template) != None:
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = templateMK(SPORT, template) 
+                await channel.send(embed = e)
+            elif templateMK(SPORT, template) == None:
+                await ctx.send("ERROR CHECK BET TYPE")
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != "||password||":
+        await ctx.send("ERROR CHECK PASSWORD")
+
+###
+##
+#
+#Results COMMAND
+#
+##
+###
+@client.command()
+@commands.has_role("Analyst")
+async def results(ctx, sport, password, *,template : literal_eval):
+    ## Analyst Calls Sender for Football
+    await ctx.channel.purge(limit = 1)
+    CHANNEL = 937562590534582303
+    SPORT = sport
+    #Player props exception
     if password == "||password||":
         if templateCheck(template):
             if templateMK(SPORT, template) != None:

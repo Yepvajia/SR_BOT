@@ -1,8 +1,9 @@
 COPY PASTE EMOTES: ❌ ✅ 🔒 🤑 💰 💸 🤣 😎
 
-$nhlcall {template} ||password||
-$footcall {template} ||password||
-$basketcall {template} ||password||
+$nhlcall ||password|| {template} 
+$footcall ||password|| {template} 
+$basketcall ||password|| {template} 
+$results sport ||password|| {template} 
 
 PROP
 PARLEY
@@ -11,22 +12,40 @@ STRAIGHT-BET
 MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
 do this shit 
 
-{"fields" : 4, 
-"bet_type" : "PARLEY",
- "name0" : "Big bet lots of money 🤑🤑💸",
- "body0" : "TRUST ME THIS IS THE MOVE ✅",
- "name1" : "🔒 LOCK OF THE WEEK 🔒",
- "body1" : "💰Invest Now💰",
- "name2" : "Is Tom Brady Gay???",
- "body2" : "😎Bigly😎",
- "name3" : "Large Man 🤣",
- "body3" : "On The Move ✅✅✅✅",
- "name4" : "Alright I got one more fo you",
- "body4" : "✅✅✅✅✅✅✅",
+$footcall ||password|| {"fields" : 4, 
+"bet_type" : "PARLAY",
+ "name0" : "Winnipeg Jets @ Dallas Stars",
+ "body0" : "Under 6.5 Total Goals",
+ "name1" : "Colorado Avalanche @ Detroit Red Wings",
+ "body1" : "Colorado Avalanche ML",
+ "name2" : "Buffalo Sabres @ Montreal Canadiens",
+ "body2" : "Over 5.5 Total Goals" ,
+ "name3" : "Edmonton Oilers @ Tampa Bay Lightning",
+ "body3" : "Tampa Bay Lighting ML",
+ "name4" : "Los Angeles Kings @ Arizona Coyotes",
+ "body4" : "Los Angeles Kings ML",
  "name5" : None,
  "body5" : None}
 
+
+
 $footcall ||password|| {"fields" : 4, 
+"bet_type" : "PARLAY",
+ "name0" : "Big bet lots of money :money_mouth::money_mouth::money_with_wings:",
+ "body0" : "TRUST ME THIS IS THE MOVE :white_check_mark:",
+ "name1" : ":lock: LOCK OF THE WEEK :lock:",
+ "body1" : ":moneybag:Invest Now:moneybag:",
+ "name2" : "Is Tom Brady Gay???",
+ "body2" : ":sunglasses:Bigly:sunglasses:",
+ "name3" : "Large Man :rofl:",
+ "body3" : "On The Move :white_check_mark::white_check_mark::white_check_mark::white_check_mark:",
+ "name4" : "Alright I got one more fo you",
+ "body4" : ":white_check_mark::white_check_mark::white_check_mark::white_check_mark::white_check_mark::white_check_mark::white_check_mark:",
+ "name5" : None,
+ "body5" : None}
+
+
+{"fields" : 4, 
 "bet_type" : "PARLEY",
  "name0" : "Big bet lots of money 🤑🤑💸",
  "body0" : "TRUST ME THIS IS THE MOVE ✅",

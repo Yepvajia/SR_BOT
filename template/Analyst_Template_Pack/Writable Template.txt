@@ -4,7 +4,8 @@ FOR EVERY CALL THER SHOULD BE A 🔒 EMOTE
 $nhlcall ||password|| {template} 
 $footcall ||password|| {template} 
 $basketcall ||password|| {template}
-$prevcall ||password|| {template}
+$prevcall ||password|| {template} 
+$resultsPOST sport ||password|| {template}
 
 PROPS
 PARLAY
