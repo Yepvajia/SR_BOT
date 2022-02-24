@@ -35,6 +35,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 DISCLAIMER_MSG_ID = 943683796228800593
 THMB = "https://i.imgur.com/QKWCNMI.png"
+PASSWORD = "||password||"
 
 @client.event
 async def on_ready():
@@ -226,7 +227,7 @@ async def prevcall(ctx, password, *,template : literal_eval):
     ## Analyst Calls Sender PREVIEW
     await ctx.channel.purge(limit = 1)
     SPORT = "Preview"
-    if password == "||password||":
+    if password == PASSWORD:
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
                 log(ctx.message.author) 
@@ -238,7 +239,7 @@ async def prevcall(ctx, password, *,template : literal_eval):
                 await ctx.send("ERROR CHECK BET TYPE")
         elif not templateCheck(template):
             await ctx.send("ERROR CHECK TEMPLATE")
-    elif password != "||password||":
+    elif password != PASSWORD:
         await ctx.send("ERROR CHECK PASSWORD")
 
 
@@ -252,18 +253,19 @@ async def footcall(ctx, password, *,template : literal_eval):
     #Player props exception
     if template["bet_type"] == "PROPS":
         CHANNEL = 938164342535372802
-    if password == "||password||":
+    if password == PASSWORD:
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
-                e = templateMK(SPORT, template) 
+                e = templateMK(SPORT, template)
+                await channel.send("@everyone")
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
         elif not templateCheck(template):
             await ctx.send("ERROR CHECK TEMPLATE")
-    elif password != "||password||":
+    elif password != PASSWORD:
         await ctx.send("ERROR CHECK PASSWORD")
 
 @client.command()
@@ -276,18 +278,19 @@ async def nhlcall(ctx, password, *,template : literal_eval):
     #Player props exception
     if template["bet_type"] == "PROPS":
         CHANNEL = 938164064591437854
-    if password == "||password||":
+    if password == PASSWORD:
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
-                e = templateMK(SPORT, template) 
+                e = templateMK(SPORT, template)
+                await channel.send("@everyone") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
         elif not templateCheck(template):
             await ctx.send("ERROR CHECK TEMPLATE")
-    elif password != "||password||":
+    elif password != PASSWORD:
         await ctx.send("ERROR CHECK PASSWORD")
 
 @client.command()
@@ -300,18 +303,19 @@ async def basketcall(ctx, password, *,template : literal_eval):
     #Player props exception
     if template["bet_type"] == "PROPS":
         CHANNEL = 938164584714489886
-    if password == "||password||":
+    if password == PASSWORD:
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
-                e = templateMK(SPORT, template) 
+                e = templateMK(SPORT, template)
+                await channel.send("@everyone") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
         elif not templateCheck(template):
             await ctx.send("ERROR CHECK TEMPLATE")
-    elif password != "||password||":
+    elif password != PASSWORD:
         await ctx.send("ERROR CHECK PASSWORD")
 
 ###
@@ -329,20 +333,55 @@ async def results(ctx, sport, password, *,template : literal_eval):
     CHANNEL = 937562590534582303
     SPORT = sport
     #Player props exception
-    if password == "||password||":
+    if password == PASSWORD:
         if templateCheck(template):
             if templateMK(SPORT, template) != None:
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
-                e = templateMK(SPORT, template) 
+                e = templateMK(SPORT, template)
+                await channel.send("@everyone") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
         elif not templateCheck(template):
             await ctx.send("ERROR CHECK TEMPLATE")
-    elif password != "||password||":
+    elif password != PASSWORD:
         await ctx.send("ERROR CHECK PASSWORD")
 
+def weeklyMK(template):
+    #{"fields" : 6, "bet_type" : "PARLEY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
+    week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    description = "***__WEEKLY RECAP__***"
+    e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
+    e.set_thumbnail(url = THMB)
+    for i in range(7):
+        if i == 0:
+            # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+            e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+        else:
+            e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+            e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+    e.set_footer(text = f"Stakes Royale")
+    return e
+
+@client.command()
+@commands.has_role("Analyst")
+async def recap(ctx, password, *,template : literal_eval):
+    ## Analyst Calls Sender for Football
+    await ctx.channel.purge(limit = 1)
+    CHANNEL = 946535729146781727
+    #Player props exception
+    if password == PASSWORD:
+        if templateCheck(template):
+            log(ctx.message.author) 
+            channel = client.get_channel(CHANNEL)
+            e = weeklyMK(template)
+            await channel.send("@everyone") 
+            await channel.send(embed = e)
+        elif not templateCheck(template):
+            await ctx.send("ERROR CHECK TEMPLATE")
+    elif password != PASSWORD:
+        await ctx.send("ERROR CHECK PASSWORD")
 
 
 client.run('OTQzNjM3NDg2NDczNzExNzM2.Yg185A.6AxeTvjbyJZk24cQI_V3utwOk5g')
