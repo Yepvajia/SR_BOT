@@ -5,7 +5,9 @@ $nhlcall ||password|| {template}
 $footcall ||password|| {template} 
 $basketcall ||password|| {template}
 $prevcall ||password|| {template} 
-$resultsPOST sport ||password|| {template}
+$results sport ||password|| {template}
+$recap ||password|| {recap_template}
+$winrate ||password|| {wr_template} ["STRAIGHT-BET", "PARLAY", "PROPS"] is the order of the bodies
 
 PROPS
 PARLAY
@@ -13,6 +15,7 @@ STRAIGHT-BET
 
 MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
 
+Calls/Resuls Template:
 {"fields" : None, 
 "bet_type" : None,
  "name0" : None,
@@ -27,3 +30,19 @@ MAKE SURE TO PUT " " AROUND THE FIELDS THAT REPLACE THE NONE*
  "body4" : None,
  "name5" : None,
  "body5" : None}
+
+Recap Template:
+ {"fields" : 6, 
+ "body0" : None,
+ "body1" : None,
+ "body2" : None,
+ "body3" : None,
+ "body4" : None,
+ "body5" : None,
+ "body6" : None}
+
+Win Rate Template:
+{"fields" : 2, 
+ "body0" : None,
+ "body1" : None,
+ "body2" : None}
