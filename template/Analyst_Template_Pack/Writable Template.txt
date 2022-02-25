@@ -7,6 +7,7 @@ $basketcall ||password|| {template}
 $prevcall ||password|| {template} 
 $results sport ||password|| {template}
 $recap ||password|| {recap_template}
+$schedule ||password|| {recap_template}
 $winrate ||password|| {wr_template} ["STRAIGHT-BET", "PARLAY", "PROPS"] is the order of the bodies
 
 PROPS
@@ -31,7 +32,7 @@ Calls/Resuls Template:
  "name5" : None,
  "body5" : None}
 
-Recap Template:
+Recap/Schedule Template:
  {"fields" : 6, 
  "body0" : None,
  "body1" : None,

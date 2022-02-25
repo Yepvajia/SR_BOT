@@ -265,7 +265,7 @@ async def footcall(ctx, password, *,template : literal_eval):
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
                 e = templateMK(SPORT, template)
-                await ctx.send("<@&938291133690298389>")
+                await channel.send("<@&938291133690298389>")
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
@@ -290,7 +290,7 @@ async def nhlcall(ctx, password, *,template : literal_eval):
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
                 e = templateMK(SPORT, template)
-                await ctx.send("<@&938291133690298389>") 
+                await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
@@ -315,7 +315,7 @@ async def basketcall(ctx, password, *,template : literal_eval):
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
                 e = templateMK(SPORT, template)
-                await ctx.send("<@&938291133690298389>") 
+                await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
@@ -345,7 +345,7 @@ async def results(ctx, sport, password, *,template : literal_eval):
                 log(ctx.message.author) 
                 channel = client.get_channel(CHANNEL)
                 e = templateMK(SPORT, template)
-                await ctx.send("<@&938291133690298389>") 
+                await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif templateMK(SPORT, template) == None:
                 await ctx.send("ERROR CHECK BET TYPE")
@@ -424,7 +424,7 @@ async def recap(ctx, password, *,template : literal_eval):
             log(ctx.message.author) 
             channel = client.get_channel(CHANNEL)
             e = weeklyMK(template, TYPE)
-            await ctx.send("<@&938291133690298389>") 
+            await channel.send("<@&938291133690298389>") 
             await channel.send(embed = e)
         elif not templateCheckWK(template):
             await ctx.send("ERROR CHECK TEMPLATE")
@@ -456,7 +456,7 @@ async def schedule(ctx, password, *,template : literal_eval):
             log(ctx.message.author) 
             channel = client.get_channel(CHANNEL)
             e = weeklyMK(template, TYPE)
-            await ctx.send("<@&938291133690298389>") 
+            await channel.send("<@&938291133690298389>") 
             await channel.send(embed = e)
         elif not templateCheckWK(template):
             await ctx.send("ERROR CHECK TEMPLATE")
@@ -482,7 +482,7 @@ async def winrate(ctx, password, *,template : literal_eval):
             log(ctx.message.author) 
             channel = client.get_channel(CHANNEL)
             e = winrateMK(template)
-            await ctx.send("<@&938291133690298389>") 
+            await channel.send("<@&938291133690298389>") 
             await channel.send(embed = e)
         elif not templateCheckWK(template):
             await ctx.send("ERROR CHECK TEMPLATE")
@@ -492,6 +492,6 @@ async def winrate(ctx, password, *,template : literal_eval):
 @client.command()
 @has_guild_permissions(administrator=True)
 async def test(ctx):
-    await ctx.send("<@&938291133690298389>")
+    await channel.send("<@&938291133690298389>")
 
 client.run('OTQzNjM3NDg2NDczNzExNzM2.Yg185A.6AxeTvjbyJZk24cQI_V3utwOk5g')
