@@ -1,0 +1,315 @@
+def templateMK(sport, template):
+        #{"fields" : 6, "bet_type" : "PARLAY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
+        description = None
+        typeDic = {"check" : ["PROPS", "PARLAY", "STRAIGHT-BET"], "PROPS" : f"\uFEFF \uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "PARLAY" : f"\uFEFF \uFEFF \uFEFF \uFEFF ~***__{template['bet_type']}__***~", "STRAIGHT-BET" : f"~***__{template['bet_type']}__***~"}
+        if template["fields"] > 6:
+            return
+        if template['bet_type'] in typeDic["check"]:
+            description = typeDic[template['bet_type']]
+        e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        for i in range(int(template["fields"])+1):
+            if i == 0:
+                # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+                e.add_field(name = template[f"name{i}"], value = "🔒" + template[f"body{i}"], inline = False)
+            else:
+                e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+                e.add_field(name = template[f"name{i}"], value = "🔒" + template[f"body{i}"], inline = False)
+        e.set_footer(text = f"{sport}")
+        if description != None:
+            return e
+
+    def templateCheck(template):
+        for i in range(int(template["fields"])+1):
+            if template[f"name{i}"] == None or template[f"body{i}"] == None:
+                return False
+        return True
+
+    def templateCheckWK(template):
+        for i in range(int(template["fields"])+1):
+            if template[f"body{i}"] == None:
+                return False
+        return True
+
+    #Log msg author
+    def log(auth): 
+        ## V ADD THIS NOW DECLARATION TO THE TOP OF THE OTHER BOT 
+        author = str(auth)
+        anaFile = os.path.join(here, 'analyst_log.json')
+        now = datetime.now()
+        date_time = now.strftime('%d/%m/%Y, %H:%M:%S')
+        log = {}
+        log[date_time] = author[:-5]
+        with open(anaFile, "r") as file:
+            data = json.load(file)
+            data.append(log)
+        with open(anaFile, "w") as file:
+            json.dump(data, file, indent=2)
+        print(log, " LOGGED")
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def prevcall(ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender PREVIEW
+        await ctx.channel.purge(limit = 1)
+        SPORT = "Preview"
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    e = templateMK(SPORT, template) 
+                    await ctx.send(embed = e)
+                    time.sleep(10)
+                    await ctx.channel.purge(limit = 1)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def footcall(ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Football
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 938164270296870922
+        SPORT = "Football"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            CHANNEL = 938164342535372802
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>")
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def nhlcall(ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Hockey
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 938163989756649592
+        SPORT = "Hockey"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            CHANNEL = 938164064591437854
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def basketcall(ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Basketball
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 938164524798857256
+        SPORT = "Basketball"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            CHANNEL = 938164584714489886
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    ###
+    ##
+    #
+    #Results COMMAND
+    #
+    ##
+    ###
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def results(ctx, sport, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Football
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 937562590534582303
+        SPORT = sport
+        #Player props exception
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    def weeklyMK(template, type):
+        #{"fields" : 6, "bet_type" : "PARLEY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
+        week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        description = type
+        e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        for i in range(int(template["fields"])+1):
+            if i == 0:
+                # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+                e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+            else:
+                e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+                e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+        e.set_footer(text = f"Stakes Royale")
+        return e
+
+    def winrateMK(template):
+        #{"fields" : 6, "bet_type" : "PARLAY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
+        week = ["STRAIGHT-BET", "PARLAY", "PROPS"]
+        description = "***__~WIN RATE~__***"
+        e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        for i in range(int(template["fields"])+1):
+            if i == 0:
+                # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
+                e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+            else:
+                e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
+                e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+        e.set_footer(text = f"Stakes Royale")
+        return e
+
+    # whodat= {"fields" : 5, 
+    # "bet_type" : "PROPS",
+    #  "name0" : "Brad Marchand 2.5 Shots On Goal",
+    #  "body0" : "✅OVER✅",
+    #  "name1" : "Jacob Markstrom 27.5 Goalie Saves",
+    #  "body1" : "✅UNDER✅",
+    #  "name2" : "Philipp Grubauer 28.5 Goalie Saves",
+    #  "body2" : "✅OVER✅",
+    #  "name3" : "Mathew Barzal 2.5 Shots On Goal",
+    #  "body3" : "✅OVER✅",
+    #  "name4" : "Elias Lindholm 2.5 Shots On Goal",
+    #  "body4" : "✅OVER✅",
+    #  "name5" : "Results",
+    #  "body5" : "5/5 —> 100%, x10 Via Prizepicks.com"}
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def recap(ctx, password, *,template : literal_eval):
+        """
+    {"fields" : 6, 
+    "body0" : None,
+    "body1" : None,
+    "body2" : None,
+    "body3" : None,
+    "body4" : None,
+    "body5" : None,
+    "body6" : None}
+
+        """
+        ## Analyst Calls Sender for Football
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 946535729146781727
+        TYPE = "***__~WEEKLY RECAP~__***"
+        #Player props exception
+        if password == PASSWORD:
+            if templateCheckWK(template):
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = weeklyMK(template, TYPE)
+                await channel.send("<@&938291133690298389>") 
+                await channel.send(embed = e)
+            elif not templateCheckWK(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def schedule(ctx, password, *,template : literal_eval):
+        """
+    {"fields" : 6, 
+    "body0" : None,
+    "body1" : None,
+    "body2" : None,
+    "body3" : None,
+    "body4" : None,
+    "body5" : None,
+    "body6" : None}
+
+        """
+        ## Analyst Calls Sender for Football
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 945879710783643748
+        TYPE = "***__~SCHEDULE~__***"
+        #Player props exception
+        if password == PASSWORD:
+            if templateCheckWK(template):
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = weeklyMK(template, TYPE)
+                await channel.send("<@&938291133690298389>") 
+                await channel.send(embed = e)
+            elif not templateCheckWK(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @commands.has_role("Analyst")
+    async def winrate(ctx, password, *,template : literal_eval):
+        """
+    {"fields" : 2, 
+    "body0" : None,
+    "body1" : None,
+    "body2" : None}
+
+        """
+        ## Analyst Calls Sender for Football
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 937931739089731595
+        #Player props exception
+        if password == PASSWORD:
+            if templateCheckWK(template):
+                log(ctx.message.author) 
+                channel = client.get_channel(CHANNEL)
+                e = winrateMK(template)
+                await channel.send("<@&938291133690298389>") 
+                await channel.send(embed = e)
+            elif not templateCheckWK(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @has_guild_permissions(administrator=True)
+    async def test(ctx):
+        await ctx.send("<@&938291133690298389>")
