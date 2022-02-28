@@ -1,3 +1,4 @@
+from hashlib import new
 from mmap import ACCESS_COPY
 import discord
 import os
@@ -10,6 +11,8 @@ from discord.ext.commands import has_guild_permissions
 from ast import literal_eval
 from datetime import datetime
 from easy_pil import Editor, Canvas, Font, load_image
+
+from xp import *
 from globul import *
 
 extensions = ['template', '_commands']
@@ -37,11 +40,34 @@ async def on_ready():
     await client.change_presence(activity=discord.Game('The Odds'))
     print("we good")
 
+@client.event
+async def on_message(message):
+    if not message.content.startswith('$rank') and str(message.author.id) != "943637486473711736":
+        rankfile = os.path.join(here, 'databases/ranks.json')
+        with open(rankfile, "r") as f:
+            users = json.load(f)
+
+        exp = users.get(str(message.author.id))
+        lvl = getLVL(exp)
+        await update_users(users, message.author)
+        await add_exp(users, message.author)
+        exp = users.get(str(message.author.id))
+        newlvl = getLVL(exp)
+
+        if newlvl > lvl:
+            if newlvl == 1:
+                await message.author.send(f"**You just leveled up for the first time on Stakes Royale. Congrats! Type $rank to see your custom rank card**")
+            else:
+                channel = client.get_channel(947976006650695750)
+                await channel.send(f"Congrats {message.author.mention}, you have leveled up to level {newlvl}")
+
+        with open(rankfile, "w") as f:
+            json.dump(users, f)
+
+    await client.process_commands(message)
+
 def nmembers(guild):
     return len([m for m in guild.members if not m.bot])
-
-
-
 
 #Member Reaction Give
 @client.event
@@ -102,41 +128,20 @@ async def on_member_remove(member):
     print("New Member!")
 
 
-
-
-
-#Construct Rank Card
-def drawRank(member, perc):
-    fontFile = os.path.join(here, 'assets/herchampions.ttf')
-    bgFile = os.path.join(here, 'assets/card_bg_noking.png')
-    image = load_image((str(member.avatar_url)))
-    font = Font(fontFile, size=100)
-    editor = Editor(bgFile)
-    pfp = Editor(image).resize((275,275)).circle_image()
-
-    editor.ellipse((21, 21), 279, 279, fill="#1c0e28")
-    #1c0e28
-    editor.paste(pfp.image, (23,23))
-
-    editor.rectangle((205,370), 1165, 80, fill = "#ffe200", radius = 40)
-    editor.bar((207,372), max_width = 1161, height = 76, percentage = int(perc), fill="#321848", radius = 40)
-    #321848 (1067/1255)*100
-    editor.text((340, 80), str(member)[:-5], font = font, color = "#ffe200")
-    editor.text((340, 160), str(member)[-5:], font = font, color = "#ffe200")
-    editor.text((340, 250), f"LVL 11", font = font, color = "#ffe200")
-    editor.text((760, 250), f"1.06K/1.25K EXP", font = font, color = "#ffe200")
-    editor.rectangle((340, 236), width = 900, height = 4, fill = "#ffe200")
-    #ffe200
-
-    return editor.image_bytes
-
 #Send Rank Card
 @client.command()
 # @has_guild_permissions(administrator=True)
-async def rank(ctx, perc = 85):
+async def rank(ctx):
     #creating rank file
-    file = discord.File(fp=drawRank(ctx.message.author, perc), filename='rank_card.png')
+    file = discord.File(fp=drawRank(ctx.message.author), filename='rank_card.png')
     await ctx.send(file=file)
+
+@client.command()
+# @has_guild_permissions(administrator=True)
+async def tester(ctx, exp = 100):
+    #creating rank file
+    lvl , cap = getXPCap(exp)
+    await ctx.send(f"{lvl} | {cap}")
 
 if __name__ == '__main__':
     for i in extensions:
