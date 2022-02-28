@@ -30,6 +30,8 @@ def getTotalXP(lvl):
     return n
 
 def getLVL(exp):
+    if exp == None:
+        exp = 0
     if exp < 100:
         return 0
     lvl = 0
@@ -62,7 +64,9 @@ def get_rank(member):
     rankfile = os.path.join(here, 'databases/ranks.json')
     with open(rankfile, "r") as f:
         users = json.load(f)
-    return users[str(member.id)]
+    if users.get(str(member.id)) == None:
+        return 0
+    return users.get(str(member.id))
 
 #Construct Rank Card
 def drawRank(member):

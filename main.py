@@ -42,7 +42,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if not message.content.startswith('$rank') and str(message.author.id) != "943637486473711736":
+    if not message.content.startswith('$') and str(message.author.id) != "943637486473711736":
         rankfile = os.path.join(here, 'databases/ranks.json')
         with open(rankfile, "r") as f:
             users = json.load(f)
