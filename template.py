@@ -1,5 +1,6 @@
 from mmap import ACCESS_COPY
 import discord
+import asyncio
 import os
 import random
 import json
@@ -30,7 +31,7 @@ class Template(commands.Cog):
                     log(ctx.message.author) 
                     e = templateMK(SPORT, template) 
                     await ctx.send(embed = e)
-                    time.sleep(10)
+                    await asyncio.sleep(10)
                     await ctx.channel.purge(limit = 1)
                 elif templateMK(SPORT, template) == None:
                     await ctx.send("ERROR CHECK BET TYPE")

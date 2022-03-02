@@ -21,8 +21,10 @@ class _Commands(commands.Cog):
     #Deletes Messages
     @commands.command(pass_context=True)
     @has_guild_permissions(administrator=True)
-    async def delete(self, ctx, n_messages = 5):
-        await ctx.channel.purge(limit = n_messages + 1)
+    async def delete(self, ctx, n_messages = "5"):
+        if str(n_messages) == "all":
+            n_messages = "999999"
+        await ctx.channel.purge(limit = int(n_messages) + 1)
 
     #Creates a Stakes Royale Disclaimer embed
     @commands.command()
@@ -42,19 +44,20 @@ class _Commands(commands.Cog):
     @commands.command()
     @has_guild_permissions(administrator=True)
     async def Socials_(self, ctx):
-        e = discord.Embed(title = "Socials", color = discord.Color.dark_purple())
+        e = discord.Embed(title = "~***__Socials__***~", color = discord.Color.dark_purple())
         e.set_thumbnail(url = THMB)
-        e.add_field(name= "<:tiktok:938338392847052810>", value = "[TikTok｜Link](https://www.youtube.com/)",inline = False)
+        e.add_field(name= "<:tiktok:938338392847052810>", value = "[TikTok｜Link](https://www.tiktok.com/@stakesroyale)",inline = False)
         e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-        e.add_field(name= "<:insta:938339028099559424>", value = "[Instagram｜Link](https://www.youtube.com/)",inline = False)
+        e.add_field(name= "<:insta:938339028099559424>", value = "[Instagram｜Link](https://www.instagram.com/stakesroyale/)",inline = False)
         e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-        e.add_field(name= "<:twitter:938339492706799647>", value = "[Twitter｜Link](https://www.youtube.com/)",inline = False)
+        e.add_field(name= "<:twitter:938339492706799647>", value = "[Twitter｜Link](https://twitter.com/StakesRoyale)",inline = False)
         e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-        e.add_field(name= "<:youtube:938338677015339008>", value = "[Youtube｜Link](https://www.youtube.com/)",inline = False)
+        #e.add_field(name= "<:youtube:938338677015339008>", value = "[Youtube｜Link](https://www.youtube.com/)",inline = False)
+        e.add_field(name= "<:facebook:948020824437309490>", value = "[Facebook｜Link](https://www.facebook.com/people/Stakes-Royale/100078375877692/)",inline = False)
         e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
         e.add_field(name= "<:logo:940097039608471572>", value = "[Website｜Link](http://stakesroyale.com/)",inline = False)
         e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-        e.set_footer(text = "Do you want somthing here?")
+        #e.set_footer(text = "Do you want somthing here?")
         await ctx.send(embed=e)
 
     @commands.command()
@@ -77,7 +80,30 @@ class _Commands(commands.Cog):
             channel = self.client.get_channel(i)
             await channel.purge(limit = 2)
             await channel.send(embed=e)
-    
+
+    @commands.command()
+    @has_guild_permissions(administrator=True)
+    async def Rules_(self, ctx):
+        e = discord.Embed(title = "~***__Rules__***~", color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        e.add_field(name= "1", value = "Be civil and respectful",inline = False)
+        e.add_field(name= "2", value = "No racial, derogatory, NSFW, political, religious, or inappropriate content.",inline = False)
+        e.add_field(name= "3", value = "You must be of legal age in your jurisdiction to participate in this server. Unlawful online gambling is strictly prohibited. You must adhere to all the laws in your jurisdiction.",inline = False)
+        e.add_field(name= "4", value = "Respect all users, moderators, and administrators at all times. Moderator decisions are final.",inline = False)
+        e.add_field(name= "5", value = "Advertising other Discord servers, subreddits, handicapping services, illicit bookie services, or anything that could be seen as intrusive or annoying to other users is prohibited. This includes self-advertisement and posting links that may be harmful to other members and their devices....",inline = False)
+        e.add_field(name= "6", value = "...In addition, if someone reaches out to you for picks, you may not sell any Telegram or capping service.",inline = False)
+        e.add_field(name= "7", value = "Please do not direct message/tag/mention users, teams, moderators, and administrators without a good reason.",inline = False)
+        e.add_field(name= "8", value = "Attempting to evade mutes/bans by using an alternative Discord account is not permitted. Impersonating a muted or banned user can result in an instant ban.",inline = False)
+        e.add_field(name= "9", value = "No scamming of any nature ESPECIALLY Discord Nitro.",inline = False)
+        e.add_field(name= "10", value = "Concerning chats:-    No touting/selling picks/advertising (unless approved by moderators).-    No begging.-    No score trolling.-    Stay on topic especially during live events.-    No spam or self-promotion (This includes DMing fellow members)",inline = False)
+        e.add_field(name= "11", value = "Do not violate the contractual, personal, or intellectual property rights of any party.",inline = False)
+        e.add_field(name= "12", value = "False information with the intent to deceive others will result in an immediate ban.",inline = False)
+        e.add_field(name= "13", value = "Promoting, advertising, or sending non-related server/content will result in disciplinary actions the degree of which is dependent on the content posted.",inline = False)
+        e.add_field(name= "14", value = "The creation and/or joining a mimic server is not allowed.",inline = False)
+        e.add_field(name= "15", value = "Most important of all, have fun and enjoy the world of sports",inline = False)
+
+        # e.set_footer(text = "Do you want somthing here?")
+        await ctx.send(embed=e)
 
 def setup(client):
     client.add_cog(_Commands(client))

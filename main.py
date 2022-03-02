@@ -1,6 +1,7 @@
 from hashlib import new
 from mmap import ACCESS_COPY
 import discord
+import asyncio
 import os
 import random
 import json
@@ -133,8 +134,14 @@ async def on_member_remove(member):
 # @has_guild_permissions(administrator=True)
 async def rank(ctx):
     #creating rank file
-    file = discord.File(fp=drawRank(ctx.message.author), filename='rank_card.png')
-    await ctx.send(file=file)
+    if ctx.channel.id == 947970181630672936:
+        file = discord.File(fp=drawRank(ctx.message.author), filename='rank_card.png')
+        await ctx.send(file=file)
+    else:
+        e = discord.Embed(title = "Use the $rank command in the __ranks__ text chat", color = discord.Color.dark_purple())
+        await ctx.send(embed=e)
+        await asyncio.sleep(2)
+        await ctx.channel.purge(limit = 2)
 
 @client.command()
 # @has_guild_permissions(administrator=True)
