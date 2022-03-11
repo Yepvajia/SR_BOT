@@ -35,8 +35,8 @@ class _Commands(commands.Cog):
         e.set_footer(text = "Press The ✅ To Agree To The Disclaimer")
         message = await ctx.send(embed=e)
         await message.add_reaction("✅")
-        #await ctx.send(f"@everyone Welcome! Please click ✅ to gain access to the server. You will see all our channels on the left.")
-
+        await ctx.send("__**After you ACCEPT the rules, RE-CLICK the check mark to have access to our discord. All channels and chats will be available on the left!**__")
+        await ctx.send("Are you interested in a __**FREE TRIAL**__ of our premium service? Well you’re in luck! For our Grand Opening, all members automatically gain the <@&938291133690298389> role and all of it's perks. This is a trial run that will end on __**SEPTEMBER 1ST 2022**__")
         ## (Mammas wanted this added) Please click ✅ to gain access to the server. You will see all our channels on the left. Welcome! @everyone
 
 
@@ -104,6 +104,19 @@ class _Commands(commands.Cog):
 
         # e.set_footer(text = "Do you want somthing here?")
         await ctx.send(embed=e)
+
+    @commands.command()
+    async def shutdown(self, ctx):
+        if ctx.author.id == MYID:
+            shutdown_embed = discord.Embed(title='Bot Maintenance', description='I am going to sleep so that Yep can work on my brain!', color = discord.Color.dark_purple())
+            await ctx.channel.send(embed=shutdown_embed)
+            channel = self.client.get_channel(951714836633493525)
+            await channel.edit(name = f'Bot Status: Offline 💀')
+            await self.client.logout()
+        if ctx.author.id != MYID:
+            errorperm_embed = discord.Embed(title='No?', description='This command is `Yepper` only. You are not allowed to use this.', color = discord.Color.dark_purple())
+            errorperm_embed.set_footer(text=ctx.author)
+            await ctx.channel.send(embed=errorperm_embed, delete_after=10.0)
 
 def setup(client):
     client.add_cog(_Commands(client))

@@ -40,6 +40,9 @@ client.remove_command('help')
 async def on_ready():
     await client.change_presence(activity=discord.Game('The Odds'))
     print("we good")
+    channel = client.get_channel(951714836633493525)
+    await channel.edit(name = f'Bot Status: Online 🤖')
+    
 
 @client.event
 async def on_message(message):
@@ -63,7 +66,7 @@ async def on_message(message):
                 await channel.send(f"Congrats {message.author.mention}, you have leveled up to level {newlvl}")
 
         with open(rankfile, "w") as f:
-            json.dump(users, f)
+            json.dump(users, f, indent=2)
 
     await client.process_commands(message)
 
@@ -77,7 +80,7 @@ async def on_raw_reaction_add(payload):
     member = discord.utils.get(guild.members, id=payload.user_id)
     if payload.message_id == DISCLAIMER_MSG_ID:
         if str(payload.emoji) == "✅":
-            role = discord.utils.get(guild.roles, name='Members')
+            role = discord.utils.get(guild.roles, name='KNIGHT')
             channel = client.get_channel(938335074523435008)
             await member.add_roles(role)
             await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
@@ -92,7 +95,7 @@ async def on_raw_reaction_remove(payload):
     if payload.message_id == DISCLAIMER_MSG_ID:
         if str(payload.emoji) == "✅":
             guild = client.get_guild(payload.guild_id)
-            role = discord.utils.get(guild.roles, name='Members')
+            role = discord.utils.get(guild.roles, name='KNIGHT')
             channel = client.get_channel(938335074523435008)
             await member.remove_roles(role)
             await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
@@ -143,12 +146,12 @@ async def rank(ctx):
         await asyncio.sleep(2)
         await ctx.channel.purge(limit = 2)
 
-@client.command()
+# @client.command()
 # @has_guild_permissions(administrator=True)
-async def tester(ctx, exp = 100):
-    #creating rank file
-    lvl , cap = getXPCap(exp)
-    await ctx.send(f"{lvl} | {cap}")
+# async def tester(ctx, exp = 100):
+#     #creating rank file
+#     lvl , cap = getXPCap(exp)
+#     await ctx.send(f"{lvl} | {cap}")
 
 if __name__ == '__main__':
     for i in extensions:

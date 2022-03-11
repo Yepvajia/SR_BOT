@@ -85,17 +85,17 @@ def weeklyMK(template, type):
 #Builds the winrate template embed
 def winrateMK(template):
     #{"fields" : 6, "bet_type" : "PARLAY", "name0" : None, "body0" : None, "name1" : None, "body1" : None, "name2" : None, "body2" : None, "name3" : None, "body3" : None, "name4" : None, "body4" : None, "name5" : None, "body5" : None}
-    week = ["STRAIGHT-BET", "PARLAY", "PROPS"]
+    bet_type = ["STRAIGHT-BET", "PARLAY", "PROPS"]
     description = "***__~WIN RATE~__***"
     e = discord.Embed(title = f"***__Stakes Royale__***", description = description, color = discord.Color.dark_purple())
     e.set_thumbnail(url = THMB)
     for i in range(int(template["fields"])+1):
         if i == 0:
             # e.add_field(name = str("\uFEFF"), value = str("\uFEFF"), inline = False)
-            e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+            e.add_field(name = bet_type[i], value = "🔒" + template[f"body{i}"], inline = False)
         else:
             e.add_field(name = f"__", value = "----------------------------------------------------------------------------", inline = False)
-            e.add_field(name = week[i], value = "🔒" + template[f"body{i}"], inline = False)
+            e.add_field(name = bet_type[i], value = "🔒" + template[f"body{i}"], inline = False)
     e.set_footer(text = f"Stakes Royale")
     return e
 
