@@ -20,7 +20,7 @@ class Template(commands.Cog):
         self.client = client
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def prevcall(self, ctx, password, *,template : literal_eval):
         ## Analyst Calls Sender PREVIEW
         await ctx.channel.purge(limit = 1)
@@ -42,7 +42,7 @@ class Template(commands.Cog):
 
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def footcall(self, ctx, password, *,template : literal_eval):
         ## Analyst Calls Sender for Football
         await ctx.channel.purge(limit = 1)
@@ -67,7 +67,7 @@ class Template(commands.Cog):
             await ctx.send("ERROR CHECK PASSWORD")
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def nhlcall(self, ctx, password, *,template : literal_eval):
         ## Analyst Calls Sender for Hockey
         await ctx.channel.purge(limit = 1)
@@ -92,7 +92,7 @@ class Template(commands.Cog):
             await ctx.send("ERROR CHECK PASSWORD")
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def basketcall(self, ctx, password, *,template : literal_eval):
         ## Analyst Calls Sender for Basketball
         await ctx.channel.purge(limit = 1)
@@ -124,7 +124,7 @@ class Template(commands.Cog):
     ##
     ###
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def results(self, ctx, sport, password, *,template : literal_eval):
         ## Analyst Calls Sender for Football
         await ctx.channel.purge(limit = 1)
@@ -163,7 +163,7 @@ class Template(commands.Cog):
     #  "name5" : "Results",
     #  "body5" : "5/5 —> 100%, x10 Via Prizepicks.com"}
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def recap(self, ctx, password, *,template : literal_eval):
         """
     {"fields" : 6, 
@@ -195,7 +195,7 @@ class Template(commands.Cog):
 
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def schedule(self, ctx, password, *,template : literal_eval):
         """
     {"fields" : 6, 
@@ -226,7 +226,7 @@ class Template(commands.Cog):
             await ctx.send("ERROR CHECK PASSWORD")
 
     @commands.command()
-    @commands.has_role("Analyst")
+    @commands.has_role("STAFF")
     async def winrate(self, ctx, password, *,template : literal_eval):
         """
     {"fields" : 2, 
