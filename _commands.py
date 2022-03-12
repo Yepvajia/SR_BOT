@@ -36,7 +36,7 @@ class _Commands(commands.Cog):
         message = await ctx.send(embed=e)
         await message.add_reaction("✅")
         await ctx.send("__**After you ACCEPT the rules, RE-CLICK the check mark to have access to our discord. All channels and chats will be available on the left!**__")
-        await ctx.send("Are you interested in a __**FREE TRIAL**__ of our premium service? Well you’re in luck! For our Grand Opening, all members automatically gain the <@&938291133690298389> role and all of it's perks. This is a trial run that will end on __**SEPTEMBER 1ST 2022**__")
+        await ctx.send("Are you interested in a __**FREE TRIAL**__ of our premium service? Well you’re in luck! For our Grand Opening, all members automatically gain the <@&938291133690298389> role and all of its perks. This is a trial run that will end on __**SEPTEMBER 1ST 2022**__")
         ## (Mammas wanted this added) Please click ✅ to gain access to the server. You will see all our channels on the left. Welcome! @everyone
 
 
