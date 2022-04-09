@@ -125,7 +125,7 @@ class Template(commands.Cog):
     ###
     @commands.command()
     @commands.has_role("STAFF")
-    async def results(self, ctx, sport, password, *,template : literal_eval):
+    async def results(self, ctx, password, sport, *,template : literal_eval):
         ## Analyst Calls Sender for Football
         await ctx.channel.purge(limit = 1)
         CHANNEL = 937562590534582303
@@ -137,7 +137,7 @@ class Template(commands.Cog):
                     log(ctx.message.author) 
                     channel = self.client.get_channel(CHANNEL)
                     e = templateMK(SPORT, template)
-                    await channel.send("<@&938291133690298389>") 
+                    #await channel.send("<@&938291133690298389>") 
                     await channel.send(embed = e)
                 elif templateMK(SPORT, template) == None:
                     await ctx.send("ERROR CHECK BET TYPE")
@@ -186,7 +186,7 @@ class Template(commands.Cog):
                 log(ctx.message.author) 
                 channel = self.client.get_channel(CHANNEL)
                 e = weeklyMK(template, TYPE)
-                await channel.send("<@&938291133690298389>") 
+                #await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif not templateCheckWK(template):
                 await ctx.send("ERROR CHECK TEMPLATE")
@@ -244,7 +244,7 @@ class Template(commands.Cog):
                 log(ctx.message.author) 
                 channel = self.client.get_channel(CHANNEL)
                 e = winrateMK(template)
-                await channel.send("<@&938291133690298389>") 
+                #await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif not templateCheckWK(template):
                 await ctx.send("ERROR CHECK TEMPLATE")

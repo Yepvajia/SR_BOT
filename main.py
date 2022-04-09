@@ -55,8 +55,14 @@ async def on_message(message):
         lvl = getLVL(exp)
         await update_users(users, message.author)
         await add_exp(users, message.author)
+        # this ened up not being the problem, I just needed to dump the new rank before attempting to send the dm
+        # if users.get(str(message.author.id)) == 99:
+        #     users[str(message.author.id)] += 1
         exp = users.get(str(message.author.id))
         newlvl = getLVL(exp)
+
+        with open(rankfile, "w") as f:
+            json.dump(users, f, indent=2)
 
         if newlvl > lvl:
             if newlvl == 1:
@@ -65,8 +71,6 @@ async def on_message(message):
                 channel = client.get_channel(947976006650695750)
                 await channel.send(f"Congrats {message.author.mention}, you have leveled up to level {newlvl}")
 
-        with open(rankfile, "w") as f:
-            json.dump(users, f, indent=2)
 
     await client.process_commands(message)
 

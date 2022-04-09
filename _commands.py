@@ -114,7 +114,6 @@ class _Commands(commands.Cog):
             channel = self.client.get_channel(951714836633493525)
             await channel.edit(name = f'Bot Status: Offline 💀')
             await self.client.logout()
-            quit()
         if ctx.author.id != MYID:
             await ctx.channel.purge(limit = 1)
             errorperm_embed = discord.Embed(title='No?', description='This command is `Yepper` only. You are not allowed to use this.', color = discord.Color.dark_purple())
