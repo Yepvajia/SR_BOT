@@ -108,12 +108,15 @@ class _Commands(commands.Cog):
     @commands.command()
     async def shutdown(self, ctx):
         if ctx.author.id == MYID:
+            await ctx.channel.purge(limit = 1)
             shutdown_embed = discord.Embed(title='Bot Maintenance', description='I am going to sleep so that Yep can work on my brain!', color = discord.Color.dark_purple())
             await ctx.channel.send(embed=shutdown_embed)
             channel = self.client.get_channel(951714836633493525)
             await channel.edit(name = f'Bot Status: Offline 💀')
             await self.client.logout()
+            quit()
         if ctx.author.id != MYID:
+            await ctx.channel.purge(limit = 1)
             errorperm_embed = discord.Embed(title='No?', description='This command is `Yepper` only. You are not allowed to use this.', color = discord.Color.dark_purple())
             errorperm_embed.set_footer(text=ctx.author)
             await ctx.channel.send(embed=errorperm_embed, delete_after=10.0)
