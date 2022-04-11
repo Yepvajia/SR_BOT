@@ -7,7 +7,7 @@ import random
 import json
 import time
 import tweepy
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import has_guild_permissions
 from ast import literal_eval
 from datetime import datetime
@@ -42,7 +42,15 @@ async def on_ready():
     print("we good")
     channel = client.get_channel(951714836633493525)
     await channel.edit(name = f'Bot Status: Online 🤖')
-    
+    updateMembers.start()
+
+#New Member Count Task
+@tasks.loop(minutes=20)
+async def updateMembers():
+    channel = client.get_channel(938335074523435008)  
+    guild = client.get_guild(937560982484553728)
+    await channel.edit(name = f'Member Count: {len([m for m in guild.members if not m.bot])}')
+
 
 @client.event
 async def on_message(message):
@@ -74,8 +82,9 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-def nmembers(guild):
-    return len([m for m in guild.members if not m.bot])
+# Not really needed: See task updateMembers
+# def nmembers(guild):
+#     return len([m for m in guild.members if not m.bot])
 
 #Member Reaction Give
 @client.event
@@ -85,9 +94,9 @@ async def on_raw_reaction_add(payload):
     if payload.message_id == DISCLAIMER_MSG_ID:
         if str(payload.emoji) == "✅":
             role = discord.utils.get(guild.roles, name='KNIGHT')
-            channel = client.get_channel(938335074523435008)
+            # channel = client.get_channel(938335074523435008)
             await member.add_roles(role)
-            await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
+            #await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
             # print(nmembers(member.guild))
 
 
@@ -98,11 +107,10 @@ async def on_raw_reaction_remove(payload):
     member = discord.utils.get(guild.members, id=payload.user_id)
     if payload.message_id == DISCLAIMER_MSG_ID:
         if str(payload.emoji) == "✅":
-            guild = client.get_guild(payload.guild_id)
             role = discord.utils.get(guild.roles, name='KNIGHT')
-            channel = client.get_channel(938335074523435008)
+            # channel = client.get_channel(938335074523435008)
             await member.remove_roles(role)
-            await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
+            #await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
             # print(nmembers(member.guild))
 
 
@@ -124,16 +132,18 @@ async def memberCount(ctx):
 #Update member count on join
 @client.event
 async def on_member_join(member):
-    channel = client.get_channel(938335074523435008)
-    await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-    print("New Member!")
+    pass
+    # channel = client.get_channel(938335074523435008)
+    # await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
+    # print("New Member!")
 
 #Update member count on leave
 @client.event
 async def on_member_remove(member):
-    channel = client.get_channel(938335074523435008)
-    await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
-    print("New Member!")
+    pass
+    # channel = client.get_channel(938335074523435008)
+    # await channel.edit(name = f'Member Count: {nmembers(member.guild)}')
+    # print("New Member!")
 
 
 #Send Rank Card
