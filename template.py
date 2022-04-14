@@ -40,7 +40,6 @@ class Template(commands.Cog):
         elif password != PASSWORD:
             await ctx.send("ERROR CHECK PASSWORD")
 
-
     @commands.command()
     @commands.has_role("STAFF")
     async def footcall(self, ctx, password, *,template : literal_eval):
@@ -324,6 +323,25 @@ class Template(commands.Cog):
                 #await channel.send("<@&938291133690298389>") 
                 await channel.send(embed = e)
             elif not templateCheckWK(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @commands.has_role("STAFF")
+    async def polls(self, ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender PREVIEW
+        await ctx.channel.purge(limit = 1)
+        SPORT = "Make your voice heard"
+        if password == PASSWORD:
+            if templateCheck(template):
+                if pollMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    e = pollMK(SPORT, template) 
+                    await ctx.send(embed = e)
+                    await asyncio.sleep(10)
+                    await ctx.channel.purge(limit = 1)
+            elif not templateCheck(template):
                 await ctx.send("ERROR CHECK TEMPLATE")
         elif password != PASSWORD:
             await ctx.send("ERROR CHECK PASSWORD")
