@@ -4,6 +4,9 @@ FOR EVERY CALL THER SHOULD BE A 🔒 EMOTE
 $nhlcall ||password|| {template} 
 $footcall ||password|| {template} 
 $basketcall ||password|| {template}
+$basecall ||password|| {template}
+$tenniscall ||password|| {template}
+$ufccall ||password|| {template}
 $prevcall ||password|| {template} 
 $results sport ||password|| {template}
 $recap ||password|| {recap_template}

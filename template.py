@@ -116,6 +116,83 @@ class Template(commands.Cog):
         elif password != PASSWORD:
             await ctx.send("ERROR CHECK PASSWORD")
 
+
+    @commands.command()
+    @commands.has_role("STAFF")
+    async def basecall(self, ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Baseball
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 963190158377775214
+        SPORT = "Baseball"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            CHANNEL = 963190817466495027
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = self.client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    
+    @commands.command()
+    @commands.has_role("STAFF")
+    async def tenniscall(self, ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for Tennis
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 963198233335705632
+        SPORT = "Tennis"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            await ctx.send("ERROR NO PROPS FOR TENNIS")
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = self.client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+    @commands.command()
+    @commands.has_role("STAFF")
+    async def ufccall(self, ctx, password, *,template : literal_eval):
+        ## Analyst Calls Sender for UFC
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 963197590357282866
+        SPORT = "UFC"
+        #Player props exception
+        if template["bet_type"] == "PROPS":
+            await ctx.send("ERROR NO PROPS FOR UFC")
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = self.client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
     ###
     ##
     #

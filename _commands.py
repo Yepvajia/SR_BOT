@@ -64,15 +64,17 @@ class _Commands(commands.Cog):
     @has_guild_permissions(administrator=True)
     async def ComingSoon_(self, ctx):
         chnls = [
-            938164154332758036, 
-            938262365760282674, 
-            938164656739078144, 
-            938262963561836555, 
-            938164434927513630, 
-            938262829402828830, 
-            947299260389556244, 
-            947299742960992286, 
-            947299773675880538
+            938164154332758036, # hoc pr
+            938262365760282674, # hoc pl
+            938164656739078144, # bskt pr
+            938262963561836555, # bskt pl
+            938164434927513630, # fb pr
+            938262829402828830, # fb pl
+            963190850697965568, # base pr
+            963191321605058650, # base pl
+            947299260389556244, # nhl fan
+            947299742960992286, # nba fan
+            947299773675880538  # nfl fan
             ]
         e = discord.Embed(title = "\uFEFF ~***__Coming Soon__***~", description = "Not Quite Ready Yet", color = discord.Color.dark_purple())
         e.set_thumbnail(url = THMB)
