@@ -120,8 +120,9 @@ class _Commands(commands.Cog):
         e.set_thumbnail(url = THMB)
         e2 = discord.Embed(title = "~***__Upgrade Now__***~", description= "placeholder", color = discord.Color.dark_purple())
         e2.set_thumbnail(url = THMB)
-        await chnls[0].send(embed=e)
-        await chnls[1].send(embed=e2)
+        await self.client.get_channel(chnls[0]).send(embed=e)
+        await self.client.get_channel(chnls[1]).send(embed=e2)
+
 
     @commands.command()
     async def shutdown(self, ctx):
