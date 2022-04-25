@@ -192,6 +192,32 @@ class Template(commands.Cog):
         elif password != PASSWORD:
             await ctx.send("ERROR CHECK PASSWORD")
 
+    @commands.command()
+    @commands.has_role("STAFF")
+    async def freepick(self, ctx, password, *,template : literal_eval):
+        ## Free Pick Preview For Playoff Bundle
+        await ctx.channel.purge(limit = 1)
+        CHANNEL = 111111111 #add server id when created
+        SPORT = "Free Pick From Playoff Bundle"
+        #Player props exception (I don't think it's needed for free picks)
+        # if template["bet_type"] == "PROPS":
+        #     await ctx.send("ERROR NO PROPS FOR UFC")
+        if password == PASSWORD:
+            if templateCheck(template):
+                if templateMK(SPORT, template) != None:
+                    log(ctx.message.author) 
+                    channel = self.client.get_channel(CHANNEL)
+                    e = templateMK(SPORT, template)
+                    await channel.send("<@&938291133690298389>") 
+                    await channel.send(embed = e)
+                elif templateMK(SPORT, template) == None:
+                    await ctx.send("ERROR CHECK BET TYPE")
+            elif not templateCheck(template):
+                await ctx.send("ERROR CHECK TEMPLATE")
+        elif password != PASSWORD:
+            await ctx.send("ERROR CHECK PASSWORD")
+
+
     ###
     ##
     #
