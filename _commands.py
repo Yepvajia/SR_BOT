@@ -39,7 +39,6 @@ class _Commands(commands.Cog):
         await ctx.send("Are you interested in a __**FREE TRIAL**__ of our premium service? Well you’re in luck! For our Grand Opening, all members automatically gain the <@&938291133690298389> role and all of its perks. This is a trial run that will end on __**SEPTEMBER 1ST 2022**__")
         ## (Mammas wanted this added) Please click ✅ to gain access to the server. You will see all our channels on the left. Welcome! @everyone
 
-
     #Socials Embed
     @commands.command()
     @has_guild_permissions(administrator=True)
@@ -60,6 +59,7 @@ class _Commands(commands.Cog):
         #e.set_footer(text = "Do you want somthing here?")
         await ctx.send(embed=e)
 
+    #Coming Soon Embed
     @commands.command()
     @has_guild_permissions(administrator=True)
     async def ComingSoon_(self, ctx):
@@ -83,6 +83,7 @@ class _Commands(commands.Cog):
             await channel.purge(limit = 2)
             await channel.send(embed=e)
 
+    #Rules Embed
     @commands.command()
     @has_guild_permissions(administrator=True)
     async def Rules_(self, ctx):
@@ -106,6 +107,21 @@ class _Commands(commands.Cog):
 
         # e.set_footer(text = "Do you want somthing here?")
         await ctx.send(embed=e)
+
+    #Playoff Bundle Embed
+    @commands.command()
+    @has_guild_permissions(administrator=True)
+    async def PBundle_(self, ctx):
+        chnls = [
+            967977336626630686, # Perks
+            967977235485179994  # Purchase Membership
+        ]
+        e = discord.Embed(title = "~***__Playoff Bundle__***~", description= "For this year's NBA/NHL playoffs, we will be offering a playoff bundle that will be available to buy April 25th. Once you purchase this bundle, you will be granted the <@&967978976389767199> role and you will be receiving:\n\n- Daily Picks for The NHL/NBA Playoffs\n\n- Exclusive Free-Chats for Daily Advice By our Analyst\n\n- Viewing Parties for These Playoff Games\n\nThe price of the Playoff Bundle will be $55.99 USD / onetime payment.\n\nThe price of the Memberships will be $29.99 USD / monthly payment\n\n***NOTE:*** If you purchase this special package, we will be offering ***6 FREE MONTHS*** of our paid memberships starting September 1st. Moreover, you will be receiving a permanent unique role that will be granting you future deals & benefits. ***Memberships will only be available to purchase on September 1st.***\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/937560982484553728)", color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        e2 = discord.Embed(title = "~***__Upgrade Now__***~", description= "placeholder", color = discord.Color.dark_purple())
+        e2.set_thumbnail(url = THMB)
+        await chnls[0].send(embed=e)
+        await chnls[1].send(embed=e2)
 
     @commands.command()
     async def shutdown(self, ctx):
