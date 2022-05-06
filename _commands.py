@@ -116,13 +116,27 @@ class _Commands(commands.Cog):
             967977336626630686, # Perks
             967977235485179994  # Purchase Membership
         ]
-        e = discord.Embed(title = "~***__Playoff Bundle__***~", description= "For this year's NBA/NHL playoffs, we will be offering a playoff bundle that will be available to buy April 25th. Once you purchase this bundle, you will be granted the <@&967978976389767199> role and you will be receiving:\n\n- Daily Picks for The NHL/NBA Playoffs\n\n- Exclusive Free-Chats for Daily Advice By our Analyst\n\n- Viewing Parties for These Playoff Games\n\nThe price of the Playoff Bundle will be $55.99 USD / onetime payment.\n\nThe price of the Memberships will be $29.99 USD / monthly payment\n\n***NOTE:*** If you purchase this special package, we will be offering ***6 FREE MONTHS*** of our paid memberships starting September 1st. Moreover, you will be receiving a permanent unique role that will be granting you future deals & benefits. ***Memberships will only be available to purchase on September 1st.***\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/937560982484553728)", color = discord.Color.dark_purple())
+        e = discord.Embed(title = "~***__Playoff Bundle__***~", description= "For this year's NBA/NHL playoffs, we will be offering a playoff bundle that will be available to buy April 25th. Once you purchase this bundle, you will be granted the <@&967978976389767199> role and you will be receiving:\n\n- Daily Picks for The NHL/NBA Playoffs\n- Exclusive Free-Chats for Daily Advice By our Analyst\n- Viewing Parties for These Playoff Games\n\nThe price of the Playoff Bundle will be $55.99 USD / onetime payment.\nThe price of the Memberships will be $29.99 USD / monthly payment\n\n***NOTE:*** If you purchase this special package, we will be offering ***6 FREE MONTHS*** of our paid memberships starting September 1st. Moreover, you will be receiving a permanent unique role that will be granting you future deals & benefits. ***Memberships will only be available to purchase on September 1st.***\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/stakesroyale)", color = discord.Color.dark_purple())
         e.set_thumbnail(url = THMB)
-        e2 = discord.Embed(title = "~***__Upgrade Now__***~", description= f"Head out to {self.client.get_channel(chnls[0]).mention} to check out all of our memberships and its perks! When you're ready to upgrade:\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/937560982484553728)", color = discord.Color.dark_purple())
+        e2 = discord.Embed(title = "~***__Upgrade Now__***~", description= f"Head out to {self.client.get_channel(chnls[0]).mention} to check out all of our memberships and its perks! When you're ready to upgrade:\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/stakesroyale)", color = discord.Color.dark_purple())
         e2.set_thumbnail(url = THMB)
         await self.client.get_channel(chnls[0]).send(embed=e)
         await self.client.get_channel(chnls[1]).send(embed=e2)
 
+    #Playoff Bundle Embed
+    @commands.command()
+    @has_guild_permissions(administrator=True)
+    async def TBundle_(self, ctx):
+        chnls = [
+            967977336626630686, # Perks
+            967977235485179994  # Purchase Membership
+        ]
+        e = discord.Embed(title = "~***__Tennis Bundle__***~", description= "For this year's French Open and Wimbledon Grand Slams, we will be offering a Tennis Bundle. This bundle will be available to buy May 6th and the first tournament starts May 22. In this bundle you will be granted the <@&971941220655984710> role where you will get:\n\n- Daily Picks for both tournaments\n- Exclusive Free-Chats for Daily Advice By our Analyst\n- Viewing Parties for the Games\n\n***NOTE:*** If you already own the Playoff Bundle, you will be granted all the picks for the Tennis Bundle. This bundle will only grant you the picks from the French Open and Wimbledon Grand Slams.\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/stakesroyale)", color = discord.Color.dark_purple())
+        e.set_thumbnail(url = THMB)
+        #e2 = discord.Embed(title = "~***__Upgrade Now__***~", description= f"Head out to {self.client.get_channel(chnls[0]).mention} to check out all of our memberships and its perks! When you're ready to upgrade:\n\n[CLICK HERE TO UPGRADE](https://upgrade.chat/stakesroyale)", color = discord.Color.dark_purple())
+        #e2.set_thumbnail(url = THMB)
+        await self.client.get_channel(chnls[0]).send(embed=e)
+        #await self.client.get_channel(chnls[1]).send(embed=e2)
 
     @commands.command()
     async def shutdown(self, ctx):
