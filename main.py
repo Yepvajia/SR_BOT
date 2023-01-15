@@ -20,7 +20,6 @@ extensions = ['template', '_commands']
 #discord.py init
 intents = discord.Intents().all()
 intents.reactions = True
-client = discord.Client()
 client = commands.Bot(command_prefix = '$', intents=intents, allowed_mentions = discord.AllowedMentions(everyone = True))
 client.remove_command('help')
 
@@ -167,11 +166,15 @@ async def rank(ctx):
 #     lvl , cap = getXPCap(exp)
 #     await ctx.send(f"{lvl} | {cap}")
 
-if __name__ == '__main__':
-    for i in extensions:
-        try:
-            client.load_extension(i)
-        except Exception as error:
-            print('{} cannot be loaded. [{}]'.format(i, error))
+async def main():
+    async with client:
+        for i in extensions:
+            try:
+                await client.load_extension(i)
+            except Exception as error:
+                print('{} cannot be loaded. [{}]'.format(i, error))
+        await client.start('OTQzNjM3NDg2NDczNzExNzM2.Yg185A.6AxeTvjbyJZk24cQI_V3utwOk5g')
 
-client.run('OTQzNjM3NDg2NDczNzExNzM2.Yg185A.6AxeTvjbyJZk24cQI_V3utwOk5g')
+if __name__ == '__main__':
+    asyncio.run(main())
+

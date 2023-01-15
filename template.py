@@ -378,5 +378,5 @@ class Template(commands.Cog):
         await ctx.send("<@&938291133690298389>")
 
 
-def setup(client):
-    client.add_cog(Template(client))
+async def setup(client):
+    await client.add_cog(Template(client))

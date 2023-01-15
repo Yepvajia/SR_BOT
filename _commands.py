@@ -153,5 +153,5 @@ class _Commands(commands.Cog):
             errorperm_embed.set_footer(text=ctx.author)
             await ctx.channel.send(embed=errorperm_embed, delete_after=10.0)
 
-def setup(client):
-    client.add_cog(_Commands(client))
+async def setup(client):
+    await client.add_cog(_Commands(client))
